@@ -247,7 +247,7 @@ const StoreApp = ({ onBack }) => {
 /* ─── Root ──────────────────────────────────────────────────── */
 
 const Root = () => {
-  const [view, setView] = React.useState('ds');
+  const [view, setView] = React.useState('store');
 
   React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
 
@@ -261,7 +261,6 @@ const Root = () => {
           <LogoMark size={32}/>
           <div>
             <div style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:700, fontSize:15, letterSpacing:'-0.01em', lineHeight:1.1 }}>PATRICE TOSSAVI ET ASSOCIÉS</div>
-            <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:9, color:'#8B8F99', letterSpacing:'0.14em', textTransform:'uppercase', marginTop:1 }}>Design System · v1.0</div>
           </div>
         </div>
         <Button variant="primary" size="md" onClick={() => setView('store')}>Lancer le store →</Button>
