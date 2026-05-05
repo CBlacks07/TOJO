@@ -2,18 +2,39 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=1280"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tossavi · Gaming Store</title>
 <link rel="stylesheet" href="colors_and_type.css"/>
 <style>
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: #F5F5F2; color: #2A2D34; font-family: 'Manrope', system-ui, sans-serif; min-width: 1280px; }
+  html, body { margin: 0; padding: 0; background: #F5F5F2; color: #2A2D34; font-family: 'Manrope', system-ui, sans-serif; }
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; }
   ::selection { background: #0070D1; color: white; }
   @keyframes slideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
   @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
   @keyframes blink   { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+  
+  section { padding: 64px 32px 0; }
+  h2 { margin: 8px 0 32px; letter-spacing: -0.02em; }
+  
+  /* Mobile-first responsive */
+  @media (max-width: 1024px) {
+    html, body { font-size: 14px; }
+    section { padding: 48px 24px 0; }
+    h2 { font-size: 32px !important; }
+  }
+  @media (max-width: 768px) {
+    html, body { font-size: 13px; }
+    section { padding: 40px 16px 0; }
+    h2 { font-size: 28px !important; }
+  }
+  @media (max-width: 480px) {
+    html, body { font-size: 12px; }
+    section { padding: 32px 12px 0; }
+    h2 { font-size: 22px !important; }
+    main { overflow: hidden; }
+  }
 </style>
 </head>
 <body>
@@ -25,6 +46,7 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 
 <script src="ui_kits/store/data.js"></script>
+<script src="ui_kits/store/responsive.js"></script>
 <script type="text/babel" src="ui_kits/store/Primitives.jsx"></script>
 <script type="text/babel" src="ui_kits/store/ProductShape.jsx"></script>
 <script type="text/babel" src="ui_kits/store/Header.jsx"></script>

@@ -1,22 +1,33 @@
 // Screens — Home, PLP, PDP, Account
 const fmt = (n) => n.toFixed(2).replace('.', ',') + ' €';
 
+// Helper for responsive grids
+const getResponsiveGrid = (width) => {
+  if (width <= 480) return { cols: 1, gap: 8, sectionPad: 12, heading: 22 };
+  if (width <= 768) return { cols: 2, gap: 12, sectionPad: 16, heading: 28 };
+  if (width <= 1024) return { cols: 3, gap: 14, sectionPad: 24, heading: 32 };
+  return { cols: 4, gap: 16, sectionPad: 32, heading: 38 };
+};
+
 // ----- HOME -----
 const HomeScreen = ({ products, onOpenProduct, onAdd, onNav }) => {
+  const width = useResponsive();
+  const responsive = getResponsiveGrid(width);
   const featured = products.slice(0, 4);
   const drops    = products.filter(p => p.tag === 'NEW' || p.tag === 'LIMITED').slice(0, 3);
+  
   return (
     <main>
       <Hero onShop={() => onNav('plp')}/>
       {/* Categories */}
-      <section style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 32px 0' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32 }}>
+      <section style={{ maxWidth: '100%', margin: '0 auto', padding: `${responsive.sectionPad}px` }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: responsive.sectionPad, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <Eyebrow>Catégories</Eyebrow>
-            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 38, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Trouve ton équipement.</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: responsive.heading, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Trouve ton équipement.</h2>
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(responsive.cols, 2)}, 1fr)`, gap: responsive.gap }}>
           {[
             { id: 'controllers', name: 'Manettes', shape: 'controller', tone: 'dark' },
             { id: 'headsets', name: 'Casques', shape: 'headset', tone: 'light' },
@@ -27,22 +38,22 @@ const HomeScreen = ({ products, onOpenProduct, onAdd, onNav }) => {
       </section>
 
       {/* Featured drops */}
-      <section style={{ maxWidth: 1280, margin: '0 auto', padding: '80px 32px 0' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32 }}>
+      <section style={{ maxWidth: '100%', margin: '0 auto', padding: `${responsive.sectionPad}px` }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: responsive.sectionPad, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <Eyebrow style={{ display:'inline-flex', alignItems:'center', gap: 8 }}><span style={{ width: 6, height: 6, background: '#C6FF3D', borderRadius: '50%', boxShadow: '0 0 6px #C6FF3D' }}/>Drops cette semaine</Eyebrow>
-            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 38, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Nouveaux produits.</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: responsive.heading, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Nouveaux produits.</h2>
           </div>
-          <a onClick={() => onNav('plp')} style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 14, color: '#2A2D34', cursor: 'pointer', borderBottom: '1.5px solid #2A2D34', paddingBottom: 2 }}>Tout voir →</a>
+          {width > 480 && <a onClick={() => onNav('plp')} style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600, fontSize: 14, color: '#2A2D34', cursor: 'pointer', borderBottom: '1.5px solid #2A2D34', paddingBottom: 2 }}>Tout voir →</a>}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.min(responsive.cols, 2)}, 1fr)`, gap: responsive.gap }}>
           {featured.map(p => <ProductCard key={p.id} product={p} onOpen={onOpenProduct} onAdd={onAdd}/>)}
         </div>
       </section>
 
       {/* Limited edition spotlight */}
-      <section style={{ background: '#0E1014', color: '#F5F5F2', margin: '120px 0 0', padding: '80px 32px' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'center' }}>
+      <section style={{ background: '#0E1014', color: '#F5F5F2', margin: `${responsive.sectionPad}px 0 0`, padding: `${responsive.sectionPad}px` }}>
+        <div style={{ maxWidth: '100%', margin: '0 auto', display: 'grid', gridTemplateColumns: width <= 768 ? '1fr' : '1fr 1fr', gap: responsive.gap * 4, alignItems: 'center' }}>
           <div style={{ aspectRatio: '1.2 / 1', position: 'relative' }}>
             <ProductShape shape="bottle" tone="dark"/>
           </div>
