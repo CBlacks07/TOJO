@@ -1,5 +1,6 @@
 // PDP — product detail
 const PDPScreen = ({ product, products, onAdd, onOpenProduct, onNav }) => {
+  const width = useResponsive();
   const [color, setColor] = React.useState(0);
   const [qty, setQty] = React.useState(1);
   const [tab, setTab] = React.useState('desc');
@@ -7,20 +8,20 @@ const PDPScreen = ({ product, products, onAdd, onOpenProduct, onNav }) => {
   if (!product) return null;
   const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
   return (
-    <main style={{ maxWidth: 1280, margin: '0 auto', padding: '24px 32px 80px' }}>
+    <main style={{ maxWidth: '100%', margin: '0 auto', padding: width <= 480 ? '16px 12px 80px' : '24px 32px 80px' }}>
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#8B8F99' }}>
         <span style={{ cursor: 'pointer' }} onClick={() => onNav('home')}>Accueil</span><span>/</span>
         <span style={{ cursor: 'pointer' }} onClick={() => onNav('plp')}>{product.category}</span><span>/</span>
         <span style={{ color: '#2A2D34' }}>{product.name}</span>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 56 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: width <= 768 ? '1fr' : '1.2fr 1fr', gap: width <= 768 ? 24 : 56 }}>
         {/* Gallery */}
         <div>
           <div style={{ background: '#ECECE7', aspectRatio: '1', position: 'relative', overflow: 'hidden', borderRadius: 4 }}>
             <ProductShape shape={product.shape} tone={product.tone}/>
             {product.badge && (<div style={{ position: 'absolute', top: 20, left: 20 }}><Badge variant={product.tag === 'SALE' ? 'sale' : 'new'}>{product.badge}</Badge></div>)}
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8, marginTop: 8 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: width <= 480 ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)', gap: 8, marginTop: 8 }}>
             {[0,1,2,3].map(i => (
               <div key={i} onClick={() => setImgIdx(i)} style={{
                 aspectRatio: '1', background: '#ECECE7', cursor: 'pointer', overflow: 'hidden', borderRadius: 2,
@@ -32,9 +33,9 @@ const PDPScreen = ({ product, products, onAdd, onOpenProduct, onNav }) => {
           </div>
         </div>
         {/* Info */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, position: 'sticky', top: 120, alignSelf: 'flex-start' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 18, position: width <= 768 ? 'relative' : 'sticky', top: width <= 768 ? 0 : 120, alignSelf: 'flex-start' }}>
           <Eyebrow>{product.brand} · {product.platform}</Eyebrow>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 42, fontWeight: 700, lineHeight: 1, letterSpacing: '-0.02em', margin: 0 }}>{product.name}</h1>
+          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 28 : width <= 768 ? 36 : 42, fontWeight: 700, lineHeight: 1, letterSpacing: '-0.02em', margin: 0 }}>{product.name}</h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ display: 'inline-flex', gap: 2, color: '#0E1014' }}>
               {[1,2,3,4,5].map(i => <i key={i} data-lucide="star" style={{ width: 16, height: 16, fill: i <= 4 ? '#0E1014' : 'none' }}/>)}

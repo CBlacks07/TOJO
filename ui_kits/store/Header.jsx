@@ -1,5 +1,6 @@
 // Header — sticky top nav with logo, primary nav, search, account, cart
 const Header = ({ cartCount = 0, onCart, onNav, active = 'home' }) => {
+  const width = useResponsive();
   const [hover, setHover] = React.useState(null);
   const navItems = [
     { id: 'controllers', label: 'Manettes' },
@@ -16,14 +17,14 @@ const Header = ({ cartCount = 0, onCart, onNav, active = 'home' }) => {
       borderBottom: '1px solid #D9D8D2',
     }}>
       <div style={{
-        maxWidth: 1280, margin: '0 auto', height: 72, padding: '0 32px',
-        display: 'grid', gridTemplateColumns: 'auto 1fr auto', alignItems: 'center', gap: 40,
+        maxWidth: '100%', margin: '0 auto', height: 72, padding: width <= 480 ? '0 12px' : '0 32px',
+        display: 'grid', gridTemplateColumns: width <= 768 ? 'auto 1fr auto' : 'auto 1fr auto', alignItems: 'center', gap: width <= 480 ? 12 : 40,
       }}>
         <a onClick={() => onNav && onNav('home')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', textDecoration: 'none' }}>
-          <LogoMark size={28}/>
-          <span style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: '0.18em', color: '#2A2D34' }}>TOSSAVI</span>
+          <LogoMark size={width <= 480 ? 20 : 28}/>
+          {width > 480 && <span style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontWeight: 700, fontSize: 13, letterSpacing: '0.18em', color: '#2A2D34' }}>TOSSAVI</span>}
         </a>
-        <nav style={{ display: 'flex', gap: 28, justifyContent: 'center' }}>
+        {width > 768 && <nav style={{ display: 'flex', gap: 28, justifyContent: 'center' }}>
           {navItems.map(it => (
             <a key={it.id}
               onClick={() => onNav && onNav(it.id)}
@@ -45,15 +46,15 @@ const Header = ({ cartCount = 0, onCart, onNav, active = 'home' }) => {
               }}/>
             </a>
           ))}
-        </nav>
-        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0 10px 0 14px', height: 38, border: '1px solid #D9D8D2', background: 'white', borderRadius: 2, marginRight: 6, width: 220 }}>
+        </nav>}
+        <div style={{ display: 'flex', gap: width <= 480 ? 2 : 4, alignItems: 'center' }}>
+          {width > 640 && <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '0 10px 0 14px', height: 38, border: '1px solid #D9D8D2', background: 'white', borderRadius: 2, marginRight: 6, width: 220 }}>
             <i data-lucide="search" style={{ width: 16, height: 16, color: '#5A5E68' }}/>
             <input placeholder="Manette, casque…" style={{ border: 0, outline: 0, flex: 1, fontFamily: "'Manrope', sans-serif", fontSize: 13, background: 'transparent' }}/>
-          </div>
-          <IconBtn label="Account"><i data-lucide="user" style={{ width: 18, height: 18 }}/></IconBtn>
-          <IconBtn label="Wishlist"><i data-lucide="heart" style={{ width: 18, height: 18 }}/></IconBtn>
-          <IconBtn label="Cart" onClick={onCart} badge={cartCount}><i data-lucide="shopping-bag" style={{ width: 18, height: 18 }}/></IconBtn>
+          </div>}
+          {width > 480 && <IconBtn label="Account"><i data-lucide="user" style={{ width: 18, height: 18 }}/></IconBtn>}
+          {width > 480 && <IconBtn label="Wishlist"><i data-lucide="heart" style={{ width: 18, height: 18 }}/></IconBtn>}
+          <IconBtn label="Cart" onClick={onCart} badge={cartCount}><i data-lucide="shopping-bag" style={{ width: width <= 480 ? 16 : 18, height: width <= 480 ? 16 : 18 }}/></IconBtn>
         </div>
       </div>
       {/* Marquee announcement bar */}
