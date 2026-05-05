@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Tossavi · Gaming Store</title>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #F5F5F2; color: #2A2D34; font-family: 'Manrope', system-ui, sans-serif; min-width: 1280px; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+  ::selection { background: #0070D1; color: white; }
+  @keyframes slideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes blink   { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script src="ui_kits/store/data.js"></script>
+<script type="text/babel" src="ui_kits/store/Primitives.jsx"></script>
+<script type="text/babel" src="ui_kits/store/ProductShape.jsx"></script>
+<script type="text/babel" src="ui_kits/store/Header.jsx"></script>
+<script type="text/babel" src="ui_kits/store/Footer.jsx"></script>
+<script type="text/babel" src="ui_kits/store/ProductCard.jsx"></script>
+<script type="text/babel" src="ui_kits/store/FilterRail.jsx"></script>
+<script type="text/babel" src="ui_kits/store/CartDrawer.jsx"></script>
+<script type="text/babel" src="ui_kits/store/Hero.jsx"></script>
+<script type="text/babel" src="ui_kits/store/HomeScreen.jsx"></script>
+<script type="text/babel" src="ui_kits/store/PLPScreen.jsx"></script>
+<script type="text/babel" src="ui_kits/store/PDPScreen.jsx"></script>
+<script type="text/babel" src="ui_kits/store/AccountScreen.jsx"></script>
+
+<script type="text/babel">
+
+/* ─── Design System Preview ─────────────────────────────────── */
+
+const DSPage = ({ onLaunch }) => {
+  const tokens = [
+    { name: '--paper',      value: '#F5F5F2', label: 'Paper' },
+    { name: '--paper-2',    value: '#ECECE7', label: 'Paper 2' },
+    { name: '--ink',        value: '#2A2D34', label: 'Ink' },
+    { name: '--ink-2',      value: '#5A5E68', label: 'Ink 2' },
+    { name: '--ink-3',      value: '#8B8F99', label: 'Ink 3' },
+    { name: '--carbon',     value: '#0E1014', label: 'Carbon' },
+    { name: '--ps-blue',    value: '#0070D1', label: 'PS Blue' },
+    { name: '--ps-blue-d',  value: '#0058A6', label: 'PS Blue Dark' },
+    { name: '--volt',       value: '#C6FF3D', label: 'Volt' },
+    { name: '--ps-cross',   value: '#1D6FE0', label: '✕ Cross' },
+    { name: '--ps-circle',  value: '#E14B4B', label: '○ Circle' },
+    { name: '--ps-square',  value: '#E64FAE', label: '□ Square' },
+    { name: '--ps-triangle', value: '#2BB573', label: '△ Triangle' },
+    { name: '--success',    value: '#1F9D55', label: 'Success' },
+    { name: '--danger',     value: '#D14343', label: 'Danger' },
+    { name: '--warning',    value: '#D97706', label: 'Warning' },
+  ];
+
+  const Cell = ({ c }) => {
+    const dark = ['#2A2D34','#5A5E68','#0E1014','#0070D1','#0058A6','#1D6FE0','#1F9D55','#D14343','#D97706','#E14B4B','#E64FAE','#8B8F99'].includes(c.value);
+    return (
+      <div style={{ background: c.value, borderRadius: 4, padding: '18px 16px', border: '1px solid rgba(0,0,0,0.06)' }}>
+        <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10, fontWeight: 600, letterSpacing: '0.08em', color: dark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.45)', marginBottom: 4 }}>{c.name}</div>
+        <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 600, color: dark ? '#fff' : '#2A2D34' }}>{c.label}</div>
+        <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10, color: dark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.38)', marginTop: 2 }}>{c.value}</div>
+      </div>
+    );
+  };
+
+  return (
+    <div style={{ maxWidth: 1280, margin: '0 auto', padding: '64px 32px 120px' }}>
+
+      {/* Palette */}
+      <div style={{ marginBottom: 72 }}>
+        <Eyebrow>Design Tokens</Eyebrow>
+        <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:38, fontWeight:600, letterSpacing:'-0.02em', margin:'8px 0 32px' }}>Couleurs</h2>
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(8,1fr)', gap:8 }}>
+          {tokens.map(c => <Cell key={c.name} c={c}/>)}
+        </div>
+      </div>
+
+      {/* Typography */}
+      <div style={{ marginBottom: 72 }}>
+        <Eyebrow>Typographie</Eyebrow>
+        <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:38, fontWeight:600, letterSpacing:'-0.02em', margin:'8px 0 32px' }}>Échelle de texte</h2>
+        <div style={{ display:'flex', flexDirection:'column', gap:4, borderTop:'1px solid #D9D8D2', paddingTop:24 }}>
+          {[
+            { label:'Display', size:88, font:'Space Grotesk', weight:700, text:'Élève ton setup.' },
+            { label:'H1',      size:64, font:'Space Grotesk', weight:700, text:'Niveau pro.' },
+            { label:'H2',      size:38, font:'Space Grotesk', weight:600, text:'Nouveaux produits.' },
+            { label:'H3',      size:30, font:'Space Grotesk', weight:600, text:'Manettes & Casques' },
+            { label:'H4',      size:24, font:'Manrope',       weight:700, text:'Station de charge' },
+            { label:'Body LG', size:18, font:'Manrope',       weight:400, text:'Retrouve toute la gamme PlayStation en stock.' },
+            { label:'Body',    size:16, font:'Manrope',       weight:400, text:'Livraison 48h offerte dès 50 € · Retours 30 jours sans frais.' },
+            { label:'Body SM', size:14, font:'Manrope',       weight:400, text:'Compatible PS5, PC · Connectivité sans fil + USB-C · Batterie ~10h' },
+            { label:'Mono',    size:12, font:'JetBrains Mono',weight:500, text:'SKU · TOSS-CTRL-001 · €239,99 · IN STOCK' },
+            { label:'Eyebrow', size:11, font:'JetBrains Mono',weight:500, text:'CATÉGORIES · BEST-SELLERS · ÉDITION LIMITÉE', upper:true },
+          ].map(t => (
+            <div key={t.label} style={{ display:'grid', gridTemplateColumns:'80px 1fr', gap:16, alignItems:'baseline', padding:'12px 0', borderBottom:'1px solid #ECECE7' }}>
+              <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:'#8B8F99', letterSpacing:'0.06em', textTransform:'uppercase' }}>{t.label}</span>
+              <span style={{ fontFamily:`'${t.font}',sans-serif`, fontSize:t.size, fontWeight:t.weight, letterSpacing: t.upper ? '0.18em' : '-0.01em', textTransform: t.upper ? 'uppercase' : 'none', lineHeight:1.1 }}>{t.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Components */}
+      <div style={{ marginBottom: 72 }}>
+        <Eyebrow>Composants</Eyebrow>
+        <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:38, fontWeight:600, letterSpacing:'-0.02em', margin:'8px 0 32px' }}>Boutons & Badges</h2>
+        <div style={{ display:'flex', flexWrap:'wrap', gap:12, alignItems:'center', marginBottom:32 }}>
+          <Button variant="primary" size="lg">Ajouter au panier</Button>
+          <Button variant="ghost" size="lg">Voir le produit</Button>
+          <Button variant="outline" size="lg">Filtrer</Button>
+          <Button variant="volt" size="lg">Édition limitée</Button>
+          <Button variant="light" size="md">Voir tout →</Button>
+          <Button variant="primary" size="sm">Confirmer</Button>
+          <Button variant="primary" size="md" disabled>Rupture</Button>
+        </div>
+        <div style={{ display:'flex', flexWrap:'wrap', gap:8, alignItems:'center' }}>
+          <Badge variant="new">NEW</Badge>
+          <Badge variant="sale">−25%</Badge>
+          <Badge variant="limited">Édition limitée</Badge>
+          <Badge variant="live">LIVE</Badge>
+          <Badge variant="soft">PS5</Badge>
+          <Badge>DROP</Badge>
+        </div>
+      </div>
+
+      {/* Symboles PS */}
+      <div style={{ marginBottom: 72 }}>
+        <Eyebrow>Iconographie</Eyebrow>
+        <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:38, fontWeight:600, letterSpacing:'-0.02em', margin:'8px 0 32px' }}>Symboles PlayStation</h2>
+        <div style={{ display:'flex', gap:24, alignItems:'center' }}>
+          {['cross','circle','square','triangle'].map(k => (
+            <div key={k} style={{ display:'flex', flexDirection:'column', alignItems:'center', gap:8 }}>
+              <PSSymbol kind={k} size={48}/>
+              <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:'#8B8F99', textTransform:'uppercase', letterSpacing:'0.1em' }}>{k}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Shadows */}
+      <div style={{ marginBottom: 72 }}>
+        <Eyebrow>Élévation</Eyebrow>
+        <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:38, fontWeight:600, letterSpacing:'-0.02em', margin:'8px 0 32px' }}>Ombres</h2>
+        <div style={{ display:'flex', gap:24, alignItems:'flex-end' }}>
+          {[
+            { label:'sh-1', shadow:'0 1px 2px rgba(14,16,20,0.04), 0 1px 1px rgba(14,16,20,0.03)' },
+            { label:'sh-2', shadow:'0 4px 12px rgba(14,16,20,0.06), 0 2px 4px rgba(14,16,20,0.04)' },
+            { label:'sh-3', shadow:'0 12px 32px rgba(14,16,20,0.10), 0 4px 8px rgba(14,16,20,0.04)' },
+            { label:'sh-4', shadow:'0 24px 60px rgba(14,16,20,0.14), 0 8px 16px rgba(14,16,20,0.06)' },
+            { label:'glow-blue', shadow:'0 0 0 4px rgba(0,112,209,0.18)' },
+            { label:'glow-volt', shadow:'0 0 24px rgba(198,255,61,0.55)' },
+          ].map(s => (
+            <div key={s.label} style={{ width:100, height:100, background:'#fff', boxShadow:s.shadow, borderRadius:8, display:'flex', alignItems:'flex-end', justifyContent:'center', paddingBottom:12 }}>
+              <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:9, color:'#8B8F99', textTransform:'uppercase', letterSpacing:'0.06em' }}>{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA to store */}
+      <div style={{ borderTop:'2px solid #2A2D34', paddingTop:48, display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+        <div>
+          <Eyebrow>UI Kit Complet</Eyebrow>
+          <h2 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:38, fontWeight:600, letterSpacing:'-0.02em', margin:'8px 0 8px' }}>4 écrans interactifs.</h2>
+          <p style={{ fontFamily:"'Manrope',sans-serif", fontSize:16, color:'#5A5E68', margin:0 }}>Home · Catalogue · Produit · Compte — panier fonctionnel inclus.</p>
+        </div>
+        <Button variant="primary" size="lg" onClick={onLaunch}>Lancer le store →</Button>
+      </div>
+    </div>
+  );
+};
+
+/* ─── Store App ─────────────────────────────────────────────── */
+
+const StoreApp = ({ onBack }) => {
+  const [screen, setScreen] = React.useState('home');
+  const [activeProduct, setActiveProduct] = React.useState(null);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [cart, setCart] = React.useState([]);
+  const [toast, setToast] = React.useState(null);
+  const products = window.STORE_DATA.products;
+
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+  React.useEffect(() => { window.scrollTo(0, 0); }, [screen, activeProduct]);
+
+  const addToCart = (product, qty = 1) => {
+    if (!product) return;
+    setCart(prev => {
+      const ex = prev.find(it => it.id === product.id);
+      if (ex) return prev.map(it => it.id === product.id ? { ...it, qty: it.qty + qty } : it);
+      return [...prev, { ...product, qty }];
+    });
+    setToast(product.name);
+    setTimeout(() => setToast(null), 2200);
+  };
+  const removeItem = (i) => setCart(prev => prev.filter((_, idx) => idx !== i));
+  const updateQty  = (i, q) => setCart(prev => q < 1 ? prev.filter((_, idx) => idx !== i) : prev.map((it, idx) => idx === i ? { ...it, qty: q } : it));
+  const openProduct = (p) => { setActiveProduct(p); setScreen('pdp'); };
+  const onNav = (id) => {
+    if (id === 'home') setScreen('home');
+    else if (id === 'account') setScreen('account');
+    else setScreen('plp');
+  };
+  const cartCount = cart.reduce((s, it) => s + it.qty, 0);
+
+  return (
+    <React.Fragment>
+      <Header cartCount={cartCount} onCart={() => setCartOpen(true)} onNav={onNav} active={screen}/>
+      {/* Nav strip */}
+      <div style={{ background:'#ECECE7', borderBottom:'1px solid #D9D8D2', padding:'8px 32px', display:'flex', gap:12, alignItems:'center', fontFamily:"'JetBrains Mono',monospace", fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'#5A5E68' }}>
+        <button onClick={onBack} style={{ border:'none', background:'none', cursor:'pointer', fontFamily:'inherit', fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase', color:'#5A5E68', padding:'6px 0', display:'flex', alignItems:'center', gap:6 }}>
+          <i data-lucide="arrow-left" style={{ width:14, height:14 }}/> Design System
+        </button>
+        <span style={{ color:'#D9D8D2' }}>·</span>
+        <span>Écrans →</span>
+        {[['home','Home'],['plp','Catalogue'],['pdp','Produit'],['account','Compte']].map(([k,lbl]) => (
+          <button key={k} onClick={() => { if (k==='pdp' && !activeProduct) setActiveProduct(products[0]); setScreen(k); }} style={{ padding:'6px 12px', background: screen===k?'#2A2D34':'transparent', color:screen===k?'#F5F5F2':'#2A2D34', border:'1px solid #2A2D34', cursor:'pointer', fontFamily:'inherit', fontSize:11, letterSpacing:'0.08em', textTransform:'uppercase' }}>{lbl}</button>
+        ))}
+      </div>
+      {screen==='home'    && <HomeScreen    products={products} onOpenProduct={openProduct} onAdd={addToCart} onNav={onNav}/>}
+      {screen==='plp'     && <PLPScreen     products={products} onOpenProduct={openProduct} onAdd={addToCart}/>}
+      {screen==='pdp'     && <PDPScreen     product={activeProduct||products[0]} products={products} onAdd={addToCart} onOpenProduct={openProduct} onNav={onNav}/>}
+      {screen==='account' && <AccountScreen products={products} onOpenProduct={openProduct} onAdd={addToCart}/>}
+      <Footer/>
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} items={cart} onRemove={removeItem} onQty={updateQty}/>
+      {toast && (
+        <div style={{ position:'fixed', bottom:32, left:'50%', transform:'translateX(-50%)', background:'#2A2D34', color:'#F5F5F2', padding:'14px 22px', display:'flex', alignItems:'center', gap:12, zIndex:200, boxShadow:'0 12px 32px rgba(14,16,20,0.2)', animation:'slideUp 240ms cubic-bezier(0.34,1.56,0.64,1)' }}>
+          <i data-lucide="check" style={{ width:18, height:18, color:'#C6FF3D' }}/>
+          <span style={{ fontFamily:"'Manrope',sans-serif", fontSize:14 }}>{toast} ajouté au panier</span>
+          <Button variant="volt" size="sm" onClick={() => { setCartOpen(true); setToast(null); }}>Voir</Button>
+        </div>
+      )}
+    </React.Fragment>
+  );
+};
+
+/* ─── Root ──────────────────────────────────────────────────── */
+
+const Root = () => {
+  const [view, setView] = React.useState('ds');
+
+  React.useEffect(() => { if (window.lucide) window.lucide.createIcons(); });
+
+  if (view === 'store') return <StoreApp onBack={() => setView('ds')}/>;
+
+  return (
+    <React.Fragment>
+      {/* Top bar */}
+      <div style={{ position:'sticky', top:0, zIndex:100, background:'rgba(245,245,242,0.88)', backdropFilter:'blur(12px)', borderBottom:'1px solid #D9D8D2', height:72, display:'flex', alignItems:'center', padding:'0 32px', justifyContent:'space-between' }}>
+        <div style={{ display:'flex', alignItems:'center', gap:14 }}>
+          <LogoMark size={32}/>
+          <div>
+            <div style={{ fontFamily:"'Space Grotesk',sans-serif", fontWeight:700, fontSize:15, letterSpacing:'-0.01em', lineHeight:1.1 }}>PATRICE TOSSAVI ET ASSOCIÉS</div>
+            <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:9, color:'#8B8F99', letterSpacing:'0.14em', textTransform:'uppercase', marginTop:1 }}>Design System · v1.0</div>
+          </div>
+        </div>
+        <Button variant="primary" size="md" onClick={() => setView('store')}>Lancer le store →</Button>
+      </div>
+
+      {/* Hero */}
+      <div style={{ background:'#0E1014', color:'#F5F5F2', padding:'96px 32px', textAlign:'center', position:'relative', overflow:'hidden' }}>
+        <div style={{ display:'flex', justifyContent:'center', gap:16, marginBottom:32, opacity:0.35 }}>
+          {['cross','circle','square','triangle'].map(k => <PSSymbol key={k} kind={k} size={24} color="#F5F5F2"/>)}
+        </div>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, letterSpacing:'0.18em', textTransform:'uppercase', color:'#9CA0AB', marginBottom:20 }}>Gaming accessories e-commerce</div>
+        <h1 style={{ fontFamily:"'Space Grotesk',sans-serif", fontSize:88, fontWeight:700, lineHeight:0.95, letterSpacing:'-0.03em', margin:'0 0 24px', maxWidth:900, marginLeft:'auto', marginRight:'auto' }}>
+          Level up<br/>ton setup.
+        </h1>
+        <p style={{ fontFamily:"'Manrope',sans-serif", fontSize:18, color:'#9CA0AB', maxWidth:520, margin:'0 auto 40px', lineHeight:1.6 }}>
+          Système de design complet pour la boutique PS Gaming de Patrice Tossavi et Associés.
+          Tokens · Composants · 4 écrans interactifs.
+        </p>
+        <div style={{ display:'flex', gap:12, justifyContent:'center' }}>
+          <Button variant="volt" size="lg" onClick={() => setView('store')}>Ouvrir le store</Button>
+          <Button variant="light" size="lg" onClick={() => document.getElementById('ds-tokens').scrollIntoView({ behavior:'smooth' })}>Voir les tokens</Button>
+        </div>
+      </div>
+
+      {/* DS content */}
+      <div id="ds-tokens">
+        <DSPage onLaunch={() => setView('store')}/>
+      </div>
+    </React.Fragment>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Root/>);
+</script>
+</body>
+</html>

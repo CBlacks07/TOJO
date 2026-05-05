@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Tossavi · Gaming Store</title>
+<link rel="stylesheet" href="../../colors_and_type.css"/>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #F5F5F2; color: #2A2D34; font-family: 'Manrope', system-ui, sans-serif; min-width: 1280px; }
+  a { color: inherit; }
+  button { font-family: inherit; }
+  ::selection { background: #0070D1; color: white; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<script src="data.js"></script>
+<script type="text/babel" src="Primitives.jsx"></script>
+<script type="text/babel" src="ProductShape.jsx"></script>
+<script type="text/babel" src="Header.jsx"></script>
+<script type="text/babel" src="Footer.jsx"></script>
+<script type="text/babel" src="ProductCard.jsx"></script>
+<script type="text/babel" src="FilterRail.jsx"></script>
+<script type="text/babel" src="CartDrawer.jsx"></script>
+<script type="text/babel" src="Hero.jsx"></script>
+<script type="text/babel" src="HomeScreen.jsx"></script>
+<script type="text/babel" src="PLPScreen.jsx"></script>
+<script type="text/babel" src="PDPScreen.jsx"></script>
+<script type="text/babel" src="AccountScreen.jsx"></script>
+
+<script type="text/babel">
+const App = () => {
+  const [screen, setScreen] = React.useState('home');
+  const [activeProduct, setActiveProduct] = React.useState(null);
+  const [cartOpen, setCartOpen] = React.useState(false);
+  const [cart, setCart] = React.useState([]);
+  const [toast, setToast] = React.useState(null);
+
+  const products = window.STORE_DATA.products;
+
+  React.useEffect(() => {
+    if (window.lucide) window.lucide.createIcons();
+  });
+
+  React.useEffect(() => { window.scrollTo(0, 0); }, [screen, activeProduct]);
+
+  const addToCart = (product, qty = 1) => {
+    if (!product) return;
+    setCart(prev => {
+      const existing = prev.find(it => it.id === product.id);
+      if (existing) return prev.map(it => it.id === product.id ? { ...it, qty: it.qty + qty } : it);
+      return [...prev, { ...product, qty }];
+    });
+    setToast(product.name);
+    setTimeout(() => setToast(null), 2200);
+  };
+
+  const removeItem = (i) => setCart(prev => prev.filter((_, idx) => idx !== i));
+  const updateQty = (i, q) => setCart(prev => q < 1 ? prev.filter((_, idx) => idx !== i) : prev.map((it, idx) => idx === i ? { ...it, qty: q } : it));
+
+  const openProduct = (p) => { setActiveProduct(p); setScreen('pdp'); };
+  const onNav = (id) => {
+    if (id === 'home') setScreen('home');
+    else if (id === 'account') setScreen('account');
+    else if (id === 'plp' || ['controllers','headsets','stands','merch','drops'].includes(id)) setScreen('plp');
+  };
+
+  const cartCount = cart.reduce((s, it) => s + it.qty, 0);
+
+  return (
+    <React.Fragment>
+      <Header cartCount={cartCount} onCart={() => setCartOpen(true)} onNav={onNav} active={screen}/>
+      {/* Demo nav strip */}
+      <div style={{ background: '#ECECE7', borderBottom: '1px solid #D9D8D2', padding: '8px 32px', display: 'flex', gap: 12, justifyContent: 'center', alignItems: 'center', fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#5A5E68' }}>
+        <span>Demo screens →</span>
+        {[['home','Home'],['plp','Catalogue'],['pdp','Produit'],['account','Compte']].map(([k, lbl]) => (
+          <button key={k} onClick={() => { if (k === 'pdp' && !activeProduct) setActiveProduct(products[0]); setScreen(k); }} style={{ padding: '6px 12px', background: screen === k ? '#2A2D34' : 'transparent', color: screen === k ? '#F5F5F2' : '#2A2D34', border: '1px solid #2A2D34', cursor: 'pointer', fontFamily: 'inherit', fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase' }}>{lbl}</button>
+        ))}
+      </div>
+      {screen === 'home' && <HomeScreen products={products} onOpenProduct={openProduct} onAdd={addToCart} onNav={onNav}/>}
+      {screen === 'plp'  && <PLPScreen  products={products} onOpenProduct={openProduct} onAdd={addToCart}/>}
+      {screen === 'pdp'  && <PDPScreen  product={activeProduct || products[0]} products={products} onAdd={addToCart} onOpenProduct={openProduct} onNav={onNav}/>}
+      {screen === 'account' && <AccountScreen products={products} onOpenProduct={openProduct} onAdd={addToCart}/>}
+      <Footer/>
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} items={cart} onRemove={removeItem} onQty={updateQty}/>
+      {/* Toast */}
+      {toast && (
+        <div style={{ position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)', background: '#2A2D34', color: '#F5F5F2', padding: '14px 22px', display: 'flex', alignItems: 'center', gap: 12, zIndex: 200, boxShadow: '0 12px 32px rgba(14,16,20,0.2)', animation: 'slideUp 240ms cubic-bezier(0.34,1.56,0.64,1)' }}>
+          <i data-lucide="check" style={{ width: 18, height: 18, color: '#C6FF3D' }}/>
+          <span style={{ fontFamily: "'Manrope', sans-serif", fontSize: 14 }}>{toast} ajouté au panier</span>
+          <Button variant="volt" size="sm" onClick={() => { setCartOpen(true); setToast(null); }}>Voir</Button>
+        </div>
+      )}
+      <style>{`@keyframes slideUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }`}</style>
+    </React.Fragment>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

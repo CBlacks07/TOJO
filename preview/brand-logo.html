@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Brand · Logo</title>
+<link rel="stylesheet" href="_card.css"/>
+<style>
+  .card { padding: 24px 32px; }
+  .logo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; border: 1px solid var(--line); }
+  .logo-cell { padding: 28px; display: flex; align-items: center; justify-content: center; min-height: 140px; }
+  .logo-cell.light { background: var(--paper); }
+  .logo-cell.dark  { background: var(--carbon); }
+  .logo-cell svg { height: 86px; width: auto; }
+  .label-row { display: flex; justify-content: space-between; padding-top: 4px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="spread">
+    <div class="muted">Logomark</div>
+    <div class="muted">Hand-vectorized · SVG</div>
+  </div>
+  <div class="logo-row">
+    <div class="logo-cell light">
+      <img src="../assets/logo-mark.svg" alt="Logo on paper"/>
+    </div>
+    <div class="logo-cell dark">
+      <img src="../assets/logo-mark-light.svg" alt="Logo on carbon"/>
+    </div>
+  </div>
+  <div class="label-row">
+    <span class="muted">on paper · #F5F5F2</span>
+    <span class="muted">on carbon · #0E1014</span>
+  </div>
+</div>
+</body>
+</html>

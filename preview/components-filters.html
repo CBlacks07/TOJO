@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Components · Filter Rail</title>
+<link rel="stylesheet" href="_card.css"/>
+<style>
+  .card { padding: 24px; }
+  .rail {
+    width: 280px;
+    border: 1px solid var(--line);
+    background: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .group { display: flex; flex-direction: column; gap: 8px; }
+  .group-h { font-family: var(--font-display); font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink); padding-bottom: 6px; border-bottom: 2px solid var(--ink); }
+  .check { display: flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 13px; color: var(--ink); }
+  .check input { width: 16px; height: 16px; accent-color: var(--ps-blue); }
+  .check .count { color: var(--ink-3); font-family: var(--font-mono); font-size: 11px; margin-left: auto; }
+  .price-range { display: flex; gap: 8px; align-items: center; }
+  .ipt { height: 32px; flex: 1; padding: 0 8px; border: 1px solid var(--line); font-family: var(--font-mono); font-size: 12px; }
+  .layout { display: flex; gap: 24px; align-items: flex-start; }
+  .meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); flex: 1; padding-top: 8px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="muted">Filter rail · PLP left sidebar</div>
+  <div class="layout">
+    <div class="rail">
+      <div class="group">
+        <div class="group-h">Catégorie</div>
+        <label class="check"><input type="checkbox" checked/>Manettes <span class="count">128</span></label>
+        <label class="check"><input type="checkbox"/>Casques <span class="count">42</span></label>
+        <label class="check"><input type="checkbox"/>Stands <span class="count">17</span></label>
+        <label class="check"><input type="checkbox"/>Merch <span class="count">96</span></label>
+      </div>
+      <div class="group">
+        <div class="group-h">Prix</div>
+        <div class="price-range">
+          <input class="ipt" value="0 €"/>
+          <span style="color:var(--ink-3)">—</span>
+          <input class="ipt" value="250 €"/>
+        </div>
+      </div>
+      <div class="group">
+        <div class="group-h">Plateforme</div>
+        <label class="check"><input type="checkbox" checked/>PS5 <span class="count">214</span></label>
+        <label class="check"><input type="checkbox"/>PS4 <span class="count">88</span></label>
+      </div>
+    </div>
+    <div class="meta">Sticky on PLP. Each group has a 2px ink rule under its title for hierarchy.</div>
+  </div>
+</div>
+</body>
+</html>

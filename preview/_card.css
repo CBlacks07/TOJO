@@ -1,0 +1,34 @@
+/* Shared styles for design-system preview cards */
+@import url('../colors_and_type.css');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  width: 100%;
+  overflow: hidden;
+}
+
+.card {
+  width: 700px;
+  padding: 28px 32px;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.card.dark {
+  background: var(--carbon);
+  color: var(--carbon-ink);
+}
+
+.row { display: flex; align-items: center; gap: 14px; }
+.row-wrap { display: flex; flex-wrap: wrap; gap: 12px; }
+.col { display: flex; flex-direction: column; gap: 8px; }
+.grid { display: grid; gap: 12px; }
+.spread { display: flex; justify-content: space-between; align-items: center; }
+.muted { color: var(--ink-3); font-size: 11px; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+.muted-dark { color: var(--carbon-ink-2); font-size: 11px; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }

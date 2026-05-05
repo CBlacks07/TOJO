@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Components · Badges & Chips</title>
+<link rel="stylesheet" href="_card.css"/>
+<style>
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .badge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .badge-sale  { background: var(--sale); color: white; }
+  .badge-new   { background: var(--volt); color: var(--ink); }
+  .badge-live  { background: var(--ink); color: var(--volt); display: inline-flex; gap: 6px; align-items: center; }
+  .badge-live::before { content: ""; width: 6px; height: 6px; background: var(--volt); border-radius: 50%; box-shadow: 0 0 6px var(--volt); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0%,100% {opacity:1} 50% {opacity:0.4} }
+  .badge-soft { background: var(--ps-blue-50); color: var(--ps-blue-d); }
+  .chip {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 7px 13px;
+    border: 1px solid var(--line);
+    background: white;
+    border-radius: 999px;
+    color: var(--ink);
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .chip.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .chip .x { opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="muted">Badges · for product status</div>
+  <div class="row">
+    <span class="badge badge-sale">−20%</span>
+    <span class="badge badge-new">Nouveau</span>
+    <span class="badge badge-live">Live drop</span>
+    <span class="badge">Édition limitée</span>
+    <span class="badge badge-soft">PS5</span>
+  </div>
+  <div class="muted">Chips · for filters</div>
+  <div class="row">
+    <span class="chip active">PS5 <span class="x">×</span></span>
+    <span class="chip">Manettes</span>
+    <span class="chip active">−20% et plus <span class="x">×</span></span>
+    <span class="chip">Sony</span>
+    <span class="chip">En stock</span>
+    <span class="chip">Sans fil</span>
+  </div>
+</div>
+</body>
+</html>

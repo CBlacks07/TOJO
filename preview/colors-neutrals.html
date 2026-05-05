@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Colors · Neutrals</title>
+<link rel="stylesheet" href="_card.css"/>
+<style>
+  .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .sw {
+    aspect-ratio: 1.1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 0;
+    color: var(--ink);
+    gap: 2px;
+  }
+  .sw .name { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; }
+  .sw .hex  { font-family: var(--font-mono); font-size: 11px; font-weight: 600; }
+  .sw.light { color: var(--carbon-ink); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="muted">Neutrals · paper to ink</div>
+  <div class="swatches">
+    <div class="sw" style="background:#F5F5F2"><span class="name">paper</span><span class="hex">#F5F5F2</span></div>
+    <div class="sw" style="background:#ECECE7"><span class="name">paper-2</span><span class="hex">#ECECE7</span></div>
+    <div class="sw" style="background:#E2E1DB"><span class="name">paper-3</span><span class="hex">#E2E1DB</span></div>
+    <div class="sw" style="background:#D9D8D2"><span class="name">line</span><span class="hex">#D9D8D2</span></div>
+    <div class="sw light" style="background:#B6B9C0"><span class="name">ink-4</span><span class="hex">#B6B9C0</span></div>
+    <div class="sw light" style="background:#8B8F99"><span class="name">ink-3</span><span class="hex">#8B8F99</span></div>
+    <div class="sw light" style="background:#5A5E68"><span class="name">ink-2</span><span class="hex">#5A5E68</span></div>
+    <div class="sw light" style="background:#2A2D34"><span class="name">ink</span><span class="hex">#2A2D34</span></div>
+    <div class="sw light" style="background:#181B22"><span class="name">carbon-2</span><span class="hex">#181B22</span></div>
+    <div class="sw light" style="background:#0E1014"><span class="name">carbon</span><span class="hex">#0E1014</span></div>
+  </div>
+</div>
+</body>
+</html>

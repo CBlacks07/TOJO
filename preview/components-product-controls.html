@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Components · Quantity & Stock</title>
+<link rel="stylesheet" href="_card.css"/>
+<style>
+  .row { display: flex; gap: 18px; flex-wrap: wrap; }
+  .qty { display: inline-flex; align-items: center; height: 44px; border: 1px solid var(--ink); }
+  .qty button { width: 44px; height: 44px; background: transparent; border: 0; font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--ink); cursor: pointer; }
+  .qty button:hover { background: var(--ink); color: var(--paper); }
+  .qty .v { width: 50px; text-align: center; font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stock {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: var(--success-50); color: #0F6938;
+    font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  }
+  .stock::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+  .stock.low { background: var(--warning-50); color: #8C4A04; }
+  .stock.low::before { background: var(--warning); }
+  .stock.out { background: var(--paper-2); color: var(--ink-2); }
+  .stock.out::before { background: var(--ink-3); }
+  .swatch-row { display: flex; gap: 10px; }
+  .col-sw {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.1);
+  }
+  .col-sw.sel { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="muted">Quantity stepper</div>
+  <div class="row">
+    <div class="qty"><button>−</button><span class="v">1</span><button>+</button></div>
+    <div class="qty"><button>−</button><span class="v">3</span><button>+</button></div>
+  </div>
+  <div class="muted">Stock indicators</div>
+  <div class="row">
+    <span class="stock">En stock · livré sous 48h</span>
+    <span class="stock low">Plus que 3 en stock</span>
+    <span class="stock out">Rupture · me prévenir</span>
+  </div>
+  <div class="muted">Color swatches</div>
+  <div class="swatch-row">
+    <div class="col-sw sel" style="background:#0E1014"></div>
+    <div class="col-sw" style="background:#F5F5F2"></div>
+    <div class="col-sw" style="background:#0070D1"></div>
+    <div class="col-sw" style="background:#E14B4B"></div>
+    <div class="col-sw" style="background:#C6FF3D"></div>
+  </div>
+</div>
+</body>
+</html>

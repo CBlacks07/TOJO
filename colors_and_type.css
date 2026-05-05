@@ -1,0 +1,295 @@
+/* =========================================================
+   PATRICE TOSSAVI ET ASSOCIÉS — Design Tokens
+   Gaming accessories e-commerce. Premium light baseline
+   with PlayStation-blue accent and sharp gaming punch.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* -----------------------------------------------------
+     COLOR — Neutrals (warm-cool charcoals on off-white)
+     Pulled directly from the Patrice Tossavi logo:
+     logo ink ≈ #2A2D34, paper ≈ #F2F2EF
+     ----------------------------------------------------- */
+  --paper:        #F5F5F2;   /* page background, default */
+  --paper-2:      #ECECE7;   /* subtle surface, hairlines */
+  --paper-3:      #E2E1DB;   /* card borders / dividers */
+  --ink:          #2A2D34;   /* primary text + logo ink */
+  --ink-2:        #5A5E68;   /* secondary text, "et associés" */
+  --ink-3:        #8B8F99;   /* tertiary, captions */
+  --ink-4:        #B6B9C0;   /* placeholders, disabled */
+  --line:         #D9D8D2;   /* default borders */
+  --line-strong:  #2A2D34;   /* bold rules */
+
+  /* Dark surface (for hero blocks, product spotlights) */
+  --carbon:       #0E1014;   /* near-black gaming */
+  --carbon-2:     #181B22;   /* card on carbon */
+  --carbon-3:     #242832;   /* hairline on carbon */
+  --carbon-ink:   #F5F5F2;   /* text on carbon */
+  --carbon-ink-2: #9CA0AB;   /* secondary on carbon */
+
+  /* -----------------------------------------------------
+     COLOR — Accent (PlayStation Blue family)
+     ----------------------------------------------------- */
+  --ps-blue:      #0070D1;   /* primary accent */
+  --ps-blue-d:    #0058A6;   /* press */
+  --ps-blue-l:    #2E8DDC;   /* hover */
+  --ps-blue-50:   #E6F1FB;   /* tinted bg */
+  --ps-blue-ink:  #FFFFFF;   /* text on ps-blue */
+
+  /* Electric secondary — used sparingly for "new", "live" */
+  --volt:         #C6FF3D;   /* gaming pop */
+  --volt-ink:     #0E1014;
+
+  /* -----------------------------------------------------
+     COLOR — PlayStation Symbol Palette
+     Use ONLY for symbol decorations / gamification.
+     ----------------------------------------------------- */
+  --ps-cross:     #1D6FE0;   /* ✕ */
+  --ps-circle:    #E14B4B;   /* ○ */
+  --ps-square:    #E64FAE;   /* □ */
+  --ps-triangle:  #2BB573;   /* △ */
+
+  /* -----------------------------------------------------
+     COLOR — Semantic
+     ----------------------------------------------------- */
+  --success:      #1F9D55;
+  --success-50:   #E8F6EE;
+  --warning:      #D97706;
+  --warning-50:   #FCF1E2;
+  --danger:       #D14343;
+  --danger-50:    #FCEBEB;
+  --info:         var(--ps-blue);
+  --info-50:      var(--ps-blue-50);
+
+  /* Promo / sale */
+  --sale:         #E14B4B;
+  --sale-bg:      #FCEBEB;
+
+  /* -----------------------------------------------------
+     TYPE — Families
+     Display: Space Grotesk (geometric, tech-forward)
+     Body:    Manrope (humanist, premium e-commerce)
+     Mono:    JetBrains Mono (specs, SKUs, prices)
+     ----------------------------------------------------- */
+  --font-display: 'Space Grotesk', 'Manrope', system-ui, sans-serif;
+  --font-body:    'Manrope', system-ui, -apple-system, sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* -----------------------------------------------------
+     TYPE — Scale (1.25 modular, optimized for e-commerce)
+     ----------------------------------------------------- */
+  --fs-xs:    12px;
+  --fs-sm:    14px;
+  --fs-base:  16px;
+  --fs-md:    18px;
+  --fs-lg:    20px;
+  --fs-xl:    24px;
+  --fs-2xl:   30px;
+  --fs-3xl:   38px;
+  --fs-4xl:   48px;
+  --fs-5xl:   64px;
+  --fs-6xl:   88px;   /* hero only */
+
+  --lh-tight: 1.05;
+  --lh-snug:  1.2;
+  --lh-base:  1.5;
+  --lh-loose: 1.7;
+
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:    0.04em;
+  --tracking-eyebrow: 0.18em;  /* uppercase eyebrows */
+
+  /* -----------------------------------------------------
+     SPACING (4-based scale)
+     ----------------------------------------------------- */
+  --sp-0:   0;
+  --sp-1:   4px;
+  --sp-2:   8px;
+  --sp-3:   12px;
+  --sp-4:   16px;
+  --sp-5:   20px;
+  --sp-6:   24px;
+  --sp-8:   32px;
+  --sp-10:  40px;
+  --sp-12:  48px;
+  --sp-16:  64px;
+  --sp-20:  80px;
+  --sp-24:  96px;
+  --sp-32:  128px;
+
+  /* -----------------------------------------------------
+     RADII — Mostly sharp. Slight rounding only on chips
+     and product cards. Buttons are squared.
+     ----------------------------------------------------- */
+  --r-0:   0px;
+  --r-1:   2px;
+  --r-2:   4px;
+  --r-3:   8px;
+  --r-4:   12px;
+  --r-pill: 999px;
+
+  /* -----------------------------------------------------
+     SHADOW — soft + crisp gaming variants
+     ----------------------------------------------------- */
+  --sh-1: 0 1px 2px rgba(14,16,20,0.04), 0 1px 1px rgba(14,16,20,0.03);
+  --sh-2: 0 4px 12px rgba(14,16,20,0.06), 0 2px 4px rgba(14,16,20,0.04);
+  --sh-3: 0 12px 32px rgba(14,16,20,0.10), 0 4px 8px rgba(14,16,20,0.04);
+  --sh-4: 0 24px 60px rgba(14,16,20,0.14), 0 8px 16px rgba(14,16,20,0.06);
+  --sh-glow-blue: 0 0 0 4px rgba(0,112,209,0.18);
+  --sh-glow-volt: 0 0 24px rgba(198,255,61,0.55);
+  --sh-inset:    inset 0 0 0 1px var(--line);
+
+  /* -----------------------------------------------------
+     MOTION
+     ----------------------------------------------------- */
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap:  cubic-bezier(0.4, 0, 0.1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:   140ms;
+  --dur-base:   240ms;
+  --dur-slow:   480ms;
+
+  /* -----------------------------------------------------
+     LAYOUT
+     ----------------------------------------------------- */
+  --container:     1280px;
+  --container-wide:1440px;
+  --header-h:      72px;
+  --grid-gap:      24px;
+}
+
+/* =========================================================
+   SEMANTIC TYPE STYLES
+   ========================================================= */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.h1, h1 {
+  font-family: var(--font-display);
+  font-size: var(--fs-5xl);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-size: var(--fs-6xl);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.h2, h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-3xl);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink);
+}
+
+.h3, h3 {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink);
+}
+
+.h4, h4 {
+  font-family: var(--font-body);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+  color: var(--ink);
+}
+
+.body, p {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  font-weight: 400;
+  line-height: var(--lh-base);
+  color: var(--ink);
+}
+
+.body-lg {
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  font-weight: 400;
+  line-height: var(--lh-base);
+  color: var(--ink);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  line-height: var(--lh-base);
+  color: var(--ink-2);
+}
+
+.caption {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  line-height: var(--lh-base);
+  color: var(--ink-3);
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-snug);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.price-large {
+  font-family: var(--font-display);
+  font-size: var(--fs-4xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.code, code, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  font-feature-settings: "ss01", "tnum";
+}
+
+/* =========================================================
+   GLOBAL BASE
+   ========================================================= */
+
+html, body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ps-blue);
+  color: var(--ps-blue-ink);
+}

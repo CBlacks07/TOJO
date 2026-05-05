@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Colors · Semantic</title>
+<link rel="stylesheet" href="_card.css"/>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sem {
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .swatch-pair { display: flex; gap: 6px; }
+  .dot { width: 28px; height: 28px; }
+  .dot.bg { width: 56px; height: 28px; }
+  .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .name { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--ink); }
+  .hex { font-family: var(--font-mono); font-size: 10px; color: var(--ink-2); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="muted">Semantic · success / warning / danger / sale</div>
+  <div class="grid">
+    <div class="sem">
+      <div class="swatch-pair"><div class="dot" style="background:#1F9D55"></div><div class="dot bg" style="background:#E8F6EE"></div></div>
+      <div class="name">Success</div>
+      <div class="hex">#1F9D55 · #E8F6EE</div>
+    </div>
+    <div class="sem">
+      <div class="swatch-pair"><div class="dot" style="background:#D97706"></div><div class="dot bg" style="background:#FCF1E2"></div></div>
+      <div class="name">Warning</div>
+      <div class="hex">#D97706 · #FCF1E2</div>
+    </div>
+    <div class="sem">
+      <div class="swatch-pair"><div class="dot" style="background:#D14343"></div><div class="dot bg" style="background:#FCEBEB"></div></div>
+      <div class="name">Danger</div>
+      <div class="hex">#D14343 · #FCEBEB</div>
+    </div>
+    <div class="sem">
+      <div class="swatch-pair"><div class="dot" style="background:#E14B4B"></div><div class="dot bg" style="background:#FCEBEB"></div></div>
+      <div class="name">Sale</div>
+      <div class="hex">#E14B4B · #FCEBEB</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
