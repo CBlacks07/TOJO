@@ -64,16 +64,16 @@ const PDPScreen = ({ product, products, onAdd, onOpenProduct, onNav }) => {
             {product.stock < 5 ? `Plus que ${product.stock} en stock` : 'En stock · livré sous 48h'}
           </div>
           {/* Qty + CTA */}
-          <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
+          <div style={{ display: 'flex', gap: 12, marginTop: 8, alignItems: 'center', flexWrap: width <= 480 ? 'wrap' : 'nowrap' }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', height: 52, border: '1px solid #2A2D34' }}>
               <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ width: 44, height: 52, border: 0, background: 'transparent', fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 600, cursor: 'pointer' }}>−</button>
               <span style={{ width: 50, textAlign: 'center', fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>{qty}</span>
               <button onClick={() => setQty(qty + 1)} style={{ width: 44, height: 52, border: 0, background: 'transparent', fontFamily: "'Space Grotesk', sans-serif", fontSize: 18, fontWeight: 600, cursor: 'pointer' }}>+</button>
             </div>
-            <Button variant="primary" size="lg" onClick={() => onAdd(product, qty)} style={{ flex: 1 }}>
-              <i data-lucide="shopping-bag" style={{ width: 16, height: 16 }}/> Ajouter au panier · {fmt(product.price * qty)}
+            <Button variant="primary" size="lg" onClick={() => onAdd(product, qty)} style={{ flex: width <= 480 ? '1 1 100%' : 1 }}>
+              {width <= 480 ? (<><i data-lucide="shopping-bag" style={{ width: 16, height: 16 }}/> Ajouter · {fmt(product.price * qty)}</>) : (<><i data-lucide="shopping-bag" style={{ width: 16, height: 16 }}/> Ajouter au panier · {fmt(product.price * qty)}</>)}
             </Button>
-            <Button variant="outline" size="lg" style={{ width: 52, padding: 0 }}><i data-lucide="heart" style={{ width: 18, height: 18 }}/></Button>
+            <Button variant="outline" size="lg" style={{ width: 52, padding: 0, flexShrink: 0 }}><i data-lucide="heart" style={{ width: 18, height: 18 }}/></Button>
           </div>
           {/* Trust strip */}
           <div style={{ display: 'flex', gap: 16, paddingTop: 16, marginTop: 8, borderTop: '1px solid #ECECE7', flexWrap: 'wrap' }}>
@@ -86,28 +86,29 @@ const PDPScreen = ({ product, products, onAdd, onOpenProduct, onNav }) => {
         </div>
       </div>
       {/* Tabs */}
-      <div style={{ marginTop: 80, borderBottom: '1px solid #D9D8D2', display: 'flex', gap: 0 }}>
+      <div style={{ marginTop: 80, borderBottom: '1px solid #D9D8D2', display: 'flex', gap: 0, overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
         {[['desc', 'Description'], ['specs', 'Caractéristiques'], ['reviews', 'Avis (412)']].map(([k, lbl]) => (
           <button key={k} onClick={() => setTab(k)} style={{
-            background: 'transparent', border: 0, padding: '16px 24px',
-            fontFamily: "'Space Grotesk', sans-serif", fontSize: 15, fontWeight: 600,
+            background: 'transparent', border: 0, padding: width <= 480 ? '12px 12px' : '16px 24px', whiteSpace: 'nowrap',
+            fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 13 : 15, fontWeight: 600,
             color: tab === k ? '#2A2D34' : '#8B8F99',
             borderBottom: tab === k ? '2px solid #2A2D34' : '2px solid transparent',
             marginBottom: -1, cursor: 'pointer',
+            flexShrink: 0,
           }}>{lbl}</button>
         ))}
       </div>
-      <div style={{ padding: '40px 0', maxWidth: 720 }}>
+      <div style={{ padding: '40px 0', maxWidth: '100%', overflowX: 'auto' }}>
         {tab === 'desc' && (
           <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: 16, lineHeight: 1.65, color: '#2A2D34', margin: 0 }}>{product.desc}</p>
         )}
         {tab === 'specs' && product.specs?.length > 0 && (
-          <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+          <table style={{ borderCollapse: 'collapse', width: '100%', minWidth: 300 }}>
             <tbody>
               {product.specs.map(([k, v]) => (
                 <tr key={k} style={{ borderBottom: '1px solid #ECECE7' }}>
-                  <td style={{ padding: '14px 0', fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5A5E68', width: 200 }}>{k}</td>
-                  <td style={{ padding: '14px 0', fontFamily: "'Manrope', sans-serif", fontSize: 14, color: '#2A2D34' }}>{v}</td>
+                  <td style={{ padding: '14px 0 14px 0', fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#5A5E68', width: width <= 480 ? 100 : 200, flexShrink: 0 }}>{k}</td>
+                  <td style={{ padding: '14px 0 14px 16px', fontFamily: "'Manrope', sans-serif", fontSize: 14, color: '#2A2D34' }}>{v}</td>
                 </tr>
               ))}
             </tbody>
@@ -120,8 +121,8 @@ const PDPScreen = ({ product, products, onAdd, onOpenProduct, onNav }) => {
       {/* Related */}
       {related.length > 0 && (
         <section style={{ marginTop: 60 }}>
-          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 28, fontWeight: 600, margin: '0 0 24px', letterSpacing: '-0.01em' }}>Tu aimeras aussi</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 22 : 28, fontWeight: 600, margin: '0 0 24px', letterSpacing: '-0.01em' }}>Tu aimeras aussi</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${width <= 480 ? 1 : width <= 768 ? 2 : 4}, 1fr)`, gap: width <= 480 ? 8 : 16 }}>
             {related.map(p => <ProductCard key={p.id} product={p} onOpen={onOpenProduct} onAdd={onAdd}/>)}
           </div>
         </section>

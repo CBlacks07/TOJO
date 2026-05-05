@@ -58,12 +58,12 @@ const Header = ({ cartCount = 0, onCart, onNav, active = 'home' }) => {
         </div>
       </div>
       {/* Marquee announcement bar */}
-      <div style={{ background: '#0E1014', color: '#F5F5F2', height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 24, fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-        <span style={{ display:'inline-flex', alignItems:'center', gap: 8 }}><PSSymbol kind="cross" size={12}/> Livraison gratuite dès 50 €</span>
+      <div style={{ background: '#0E1014', color: '#F5F5F2', height: width <= 480 ? 28 : 32, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: width <= 480 ? 12 : 24, fontFamily: "'JetBrains Mono', monospace", fontSize: width <= 480 ? 9 : 11, letterSpacing: '0.1em', textTransform: 'uppercase', overflowX: width <= 480 ? 'auto' : 'visible', WebkitOverflowScrolling: 'touch' }}>
+        <span style={{ display:'inline-flex', alignItems:'center', gap: width <= 480 ? 4 : 8, flexShrink: 0 }}><PSSymbol kind="cross" size={width <= 480 ? 10 : 12}/> {width <= 480 ? 'Livr. gr. 50€' : 'Livraison gratuite dès 50 €'}</span>
         <span style={{ opacity: 0.4 }}>·</span>
-        <span style={{ display:'inline-flex', alignItems:'center', gap: 8 }}><PSSymbol kind="triangle" size={12}/> Drop édition limitée · 04/26</span>
+        <span style={{ display:'inline-flex', alignItems:'center', gap: width <= 480 ? 4 : 8, flexShrink: 0 }}><PSSymbol kind="triangle" size={width <= 480 ? 10 : 12}/> {width <= 480 ? 'Drop 04/26' : 'Drop édition limitée · 04/26'}</span>
         <span style={{ opacity: 0.4 }}>·</span>
-        <span style={{ display:'inline-flex', alignItems:'center', gap: 8 }}><PSSymbol kind="circle" size={12}/> FR/EN</span>
+        <span style={{ display:'inline-flex', alignItems:'center', gap: width <= 480 ? 4 : 8, flexShrink: 0 }}><PSSymbol kind="circle" size={width <= 480 ? 10 : 12}/> FR/EN</span>
       </div>
     </header>
   );

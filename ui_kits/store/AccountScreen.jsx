@@ -1,16 +1,17 @@
 // Account screen — orders, wishlist, profile
 const AccountScreen = ({ products, onOpenProduct, onAdd }) => {
+  const width = useResponsive();
   const [section, setSection] = React.useState('orders');
   const wishlist = products.slice(2, 6);
   return (
-    <main style={{ maxWidth: 1280, margin: '0 auto', padding: '32px 32px 80px' }}>
+    <main style={{ maxWidth: '100%', margin: '0 auto', padding: width <= 480 ? '16px 12px 80px' : width <= 768 ? '24px 24px 80px' : '32px 32px 80px' }}>
       <div style={{ marginBottom: 32 }}>
         <Eyebrow>Compte</Eyebrow>
-        <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 42, fontWeight: 700, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Salut, Patrice 👋</h1>
+        <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 28 : width <= 768 ? 36 : 42, fontWeight: 700, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Salut, Patrice 👋</h1>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 40 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: width <= 768 ? '1fr' : '240px 1fr', gap: width <= 768 ? 24 : 40 }}>
         {/* Side nav */}
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <nav style={{ display: width <= 768 ? 'grid' : 'flex', gridTemplateColumns: width <= 768 ? 'repeat(auto-fit, minmax(120px, 1fr))' : undefined, flexDirection: width <= 768 ? undefined : 'column', gap: width <= 768 ? 12 : 4 }}>
           {[
             ['orders', 'Commandes', 'package'],
             ['wishlist', 'Wishlist', 'heart'],
@@ -19,13 +20,14 @@ const AccountScreen = ({ products, onOpenProduct, onAdd }) => {
             ['logout', 'Déconnexion', 'log-out'],
           ].map(([k, lbl, ic]) => (
             <button key={k} onClick={() => setSection(k)} style={{
-              display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px',
+              display: 'flex', alignItems: 'center', gap: 12, padding: width <= 480 ? '10px 8px' : '12px 14px',
               border: 0, background: section === k ? '#2A2D34' : 'transparent',
               color: section === k ? '#F5F5F2' : '#2A2D34',
-              fontFamily: "'Manrope', sans-serif", fontSize: 14, fontWeight: 500, cursor: 'pointer',
-              textAlign: 'left', borderRadius: 2,
+              fontFamily: "'Manrope', sans-serif", fontSize: width <= 480 ? 12 : 14, fontWeight: 500, cursor: 'pointer',
+              textAlign: 'left', borderRadius: 2, whiteSpace: 'nowrap',
             }}>
-              <i data-lucide={ic} style={{ width: 16, height: 16 }}/>{lbl}
+              {width <= 768 && <i data-lucide={ic} style={{ width: 16, height: 16 }}/>}
+              {width > 480 && lbl}
             </button>
           ))}
         </nav>
@@ -38,25 +40,25 @@ const AccountScreen = ({ products, onOpenProduct, onAdd }) => {
                 { id: 'TS-2026-04590', date: '24 avril 2026', total: 89.90, status: 'Livrée', items: 1 },
                 { id: 'TS-2026-04221', date: '08 avril 2026', total: 24.90, status: 'Livrée', items: 1 },
               ].map(o => (
-                <div key={o.id} style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: 24, alignItems: 'center', padding: '20px 24px', background: 'white', border: '1px solid #E2E1DB', borderRadius: 4 }}>
+                <div key={o.id} style={{ display: 'grid', gridTemplateColumns: width <= 480 ? '1fr' : width <= 768 ? '1fr auto' : '1fr auto auto auto', gap: 12, alignItems: width <= 480 ? 'flex-start' : 'center', padding: '16px', background: 'white', border: '1px solid #E2E1DB', borderRadius: 4 }}>
                   <div>
                     <Eyebrow>{o.id}</Eyebrow>
-                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 16, fontWeight: 600, marginTop: 4 }}>{o.items} article{o.items > 1 ? 's' : ''} · {o.date}</div>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 14, fontWeight: 600, marginTop: 4 }}>{o.items} article{o.items > 1 ? 's' : ''} · {o.date}</div>
                   </div>
-                  <span style={{ padding: '5px 9px', background: o.status === 'Expédiée' ? '#E6F1FB' : '#E8F6EE', color: o.status === 'Expédiée' ? '#0058A6' : '#0F6938', fontFamily: "'JetBrains Mono', monospace", fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600 }}>{o.status}</span>
-                  <Price value={o.total} size="md"/>
-                  <Button variant="outline" size="sm">Détails →</Button>
+                  <span style={{ padding: '5px 9px', background: o.status === 'Expédiée' ? '#E6F1FB' : '#E8F6EE', color: o.status === 'Expédiée' ? '#0058A6' : '#0F6938', fontFamily: "'JetBrains Mono', monospace", fontSize: 9, letterSpacing: '0.12em', textTransform: 'uppercase', fontWeight: 600, width: 'fit-content' }}>{o.status}</span>
+                  {width > 768 && <Price value={o.total} size="md"/>}
+                  {width > 768 && <Button variant="outline" size="sm">Détails →</Button>}
                 </div>
               ))}
             </div>
           )}
           {section === 'wishlist' && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: `repeat(${width <= 480 ? 1 : width <= 768 ? 2 : 3}, 1fr)`, gap: 12 }}>
               {wishlist.map(p => <ProductCard key={p.id} product={p} onOpen={onOpenProduct} onAdd={onAdd}/>)}
             </div>
           )}
           {section === 'addresses' && (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: width <= 480 ? '1fr' : 'repeat(2, 1fr)', gap: 16 }}>
               <div style={{ padding: 24, background: 'white', border: '1px solid #E2E1DB', borderRadius: 4 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
                   <Eyebrow>Domicile · par défaut</Eyebrow>

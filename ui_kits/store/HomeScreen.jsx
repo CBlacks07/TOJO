@@ -59,9 +59,9 @@ const HomeScreen = ({ products, onOpenProduct, onAdd, onNav }) => {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <Eyebrow style={{ color: '#C6FF3D' }}>Édition limitée · 500 ex.</Eyebrow>
-            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 56, fontWeight: 700, lineHeight: 1, letterSpacing: '-0.02em', margin: 0 }}>Gourde Tossavi —<br/>Squad Edition.</h2>
-            <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: 17, color: '#9CA0AB', lineHeight: 1.55, margin: 0, maxWidth: 460 }}>Inox double paroi, 750 ml, isotherme 12h. Logo gravé au laser. Numérotée à la main.</p>
-            <div style={{ display: 'flex', gap: 12, marginTop: 8, alignItems: 'center' }}>
+            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 28 : width <= 768 ? 40 : 56, fontWeight: 700, lineHeight: 1.1, letterSpacing: '-0.02em', margin: 0 }}>Gourde Tossavi —<br/>Squad Edition.</h2>
+            <p style={{ fontFamily: "'Manrope', sans-serif", fontSize: width <= 480 ? 14 : 17, color: '#9CA0AB', lineHeight: 1.55, margin: 0, maxWidth: 460 }}>Inox double paroi, 750 ml, isotherme 12h. Logo gravé au laser. Numérotée à la main.</p>
+            <div style={{ display: 'flex', gap: 12, marginTop: 8, alignItems: 'center', flexWrap: 'wrap' }}>
               <Price value={24.90} size="xl" dark/>
               <Button variant="volt" size="lg" onClick={() => onAdd && onAdd(products.find(p => p.id === 'gourde-tossavi'))}>Ajouter au panier</Button>
             </div>
@@ -70,21 +70,21 @@ const HomeScreen = ({ products, onOpenProduct, onAdd, onNav }) => {
       </section>
 
       {/* Best sellers */}
-      <section style={{ maxWidth: 1280, margin: '0 auto', padding: '120px 32px 0' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32 }}>
+      <section style={{ maxWidth: '100%', margin: '0 auto', padding: `${responsive.sectionPad * 4}px ${responsive.sectionPad}px 0` }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: responsive.sectionPad, flexWrap: 'wrap', gap: 16 }}>
           <div>
             <Eyebrow>Best-sellers</Eyebrow>
-            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 38, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Ce que la squad achète.</h2>
+            <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: responsive.heading, fontWeight: 600, margin: '8px 0 0', letterSpacing: '-0.02em' }}>Ce que la squad achète.</h2>
           </div>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${responsive.cols}, 1fr)`, gap: responsive.gap }}>
           {products.slice(2, 6).map(p => <ProductCard key={p.id} product={p} onOpen={onOpenProduct} onAdd={onAdd}/>)}
         </div>
       </section>
 
       {/* Trust */}
-      <section style={{ maxWidth: 1280, margin: '120px auto 80px', padding: '40px 32px', borderTop: '1px solid #D9D8D2', borderBottom: '1px solid #D9D8D2' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32 }}>
+      <section style={{ maxWidth: '100%', margin: `${responsive.sectionPad * 4}px auto ${responsive.sectionPad * 2}px`, padding: `${responsive.sectionPad}px`, borderTop: '1px solid #D9D8D2', borderBottom: '1px solid #D9D8D2' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${Math.max(Math.min(responsive.cols, 2), 1)}, 1fr)`, gap: width <= 480 ? responsive.gap : 32 }}>
           {[
             ['truck', 'Livraison 48h', 'Offerte dès 50 €'],
             ['shield-check', 'Garantie 2 ans', 'Constructeur officielle'],

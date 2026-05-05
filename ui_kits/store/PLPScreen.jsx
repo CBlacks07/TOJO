@@ -24,9 +24,9 @@ const PLPScreen = ({ products, onOpenProduct, onAdd }) => {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 32, gap: 16, flexWrap: 'wrap' }}>
         <div>
           <Eyebrow>Catalogue · {sorted.length} produits</Eyebrow>
-          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 28 : width <= 768 ? 40 : 56, fontWeight: 700, margin: '8px 0 0', letterSpacing: '-0.02em', lineHeight: 1 }}>Tout le gaming.</h1>
+          <h1 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: width <= 480 ? 26 : width <= 768 ? 40 : 56, fontWeight: 700, margin: '8px 0 0', letterSpacing: '-0.02em', lineHeight: 1 }}>Tout le gaming.</h1>
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           {width > 480 && <Eyebrow>Trier par</Eyebrow>}
           <select value={sort} onChange={(e) => setSort(e.target.value)} style={{ height: 40, padding: '0 12px', border: '1px solid #D9D8D2', background: 'white', fontFamily: "'Manrope', sans-serif", fontSize: 13, borderRadius: 2 }}>
             <option value="featured">Recommandés</option>
